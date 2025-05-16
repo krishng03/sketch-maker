@@ -1,0 +1,102 @@
+{
+  "page": {
+    "width": 595,
+    "height": 842,
+    "unit": "pt"
+  },
+  "elements": [
+    {
+      "id": "logo_1",
+      "type": "image",
+      "bbox": { "x": 40, "y": 40, "width": 120, "height": 60 },
+      "properties": {
+        "placeholder": "{{company_logo}}",
+        "rotation": 0
+      }
+    },
+    {
+      "id": "header_1",
+      "type": "text",
+      "bbox": { "x": 180, "y": 50, "width": 360, "height": 40 },
+      "properties": {
+        "fontSize": 18,
+        "fontWeight": "bold",
+        "placeholder": "{{invoice_title}}"
+      }
+    },
+    {
+      "id": "customer_info",
+      "type": "group",
+      "elements": [
+        {
+          "id": "cust_name",
+          "type": "text",
+          "bbox": { "x": 40, "y": 120, "width": 250, "height": 20 },
+          "properties": { "placeholder": "{{customer_name}}" }
+        },
+        {
+          "id": "cust_address",
+          "type": "text",
+          "bbox": { "x": 40, "y": 145, "width": 250, "height": 40 },
+          "properties": { "placeholder": "{{customer_address}}" }
+        }
+      ]
+    },
+    {
+      "id": "items_table",
+      "type": "table",
+      "bbox": { "x": 40, "y": 210, "width": 520, "height": 300 },
+      "properties": {
+        "columns": [
+          { "header": "Description", "width": 300, "placeholder": "items[].description" },
+          { "header": "Qty",         "width": 80,  "placeholder": "items[].quantity" },
+          { "header": "Unit Price",  "width": 80,  "placeholder": "items[].unit_price" },
+          { "header": "Total",       "width": 60,  "placeholder": "items[].total_price" }
+        ],
+        "rowHeight": 20,
+        "headerFontWeight": "bold"
+      }
+    },
+    {
+      "id": "subtotal",
+      "type": "text",
+      "bbox": { "x": 360, "y": 530, "width": 200, "height": 20 },
+      "properties": {
+        "fontSize": 12,
+        "textAlign": "right",
+        "placeholder": "{{subtotal}}"
+      }
+    },
+    {
+      "id": "tax",
+      "type": "text",
+      "bbox": { "x": 360, "y": 555, "width": 200, "height": 20 },
+      "properties": {
+        "fontSize": 12,
+        "textAlign": "right",
+        "placeholder": "{{tax_amount}}"
+      }
+    },
+    {
+      "id": "total",
+      "type": "text",
+      "bbox": { "x": 360, "y": 585, "width": 200, "height": 25 },
+      "properties": {
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "textAlign": "right",
+        "placeholder": "{{grand_total}}"
+      }
+    },
+    {
+      "id": "footer",
+      "type": "text",
+      "bbox": { "x": 40, "y": 800, "width": 520, "height": 20 },
+      "properties": {
+        "fontSize": 10,
+        "textAlign": "center",
+        "placeholder": "{{footer_note}}"
+      }
+    }
+  ]
+}
