@@ -1,0 +1,109 @@
+{
+  "businessDetails": {
+    "businessName": "BrightTech Solutions",
+    "ownerName": "Jane Doe",
+    "email": "contact@brighttech.com",
+    "phone": "+1-555-123-4567",
+    "address": {
+      "street": "123 Innovation Drive",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94107",
+      "country": "USA"
+    },
+    "gstNumber": "27ABCDE1234F1Z5",
+    "businessType": "Technology Services"
+  },
+  "items": [
+    {
+      "itemId": "ITM001",
+      "name": "Website Development",
+      "type": "Service",
+      "category": "Web Services",
+      "rate": 1500,
+      "unit": "Project",
+      "taxPercentage": 18
+    },
+    {
+      "itemId": "ITM002",
+      "name": "Cloud Hosting - Basic",
+      "type": "Product",
+      "category": "Hosting",
+      "rate": 100,
+      "unit": "Month",
+      "taxPercentage": 18
+    }
+  ],
+  "parties": [
+    {
+      "partyId": "PTY001",
+      "name": "Acme Corp",
+      "type": "Customer",
+      "contact": {
+        "email": "info@acmecorp.com",
+        "phone": "+1-555-987-6543"
+      },
+      "address": {
+        "street": "456 Enterprise Lane",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10001",
+        "country": "USA"
+      },
+      "gstNumber": "27ACMEC1234P1Z9"
+    },
+    {
+      "partyId": "PTY002",
+      "name": "Delta Supplies",
+      "type": "Vendor",
+      "contact": {
+        "email": "support@deltasupplies.com",
+        "phone": "+1-555-321-7890"
+      },
+      "address": {
+        "street": "789 Supplier Street",
+        "city": "Chicago",
+        "state": "IL",
+        "zip": "60616",
+        "country": "USA"
+      },
+      "gstNumber": "27DELT1234V1Z0"
+    }
+  ],
+  "transactions": [
+    {
+      "transactionId": "TXN001",
+      "type": "Invoice",
+      "date": "2025-05-01",
+      "partyId": "PTY001",
+      "items": [
+        {
+          "itemId": "ITM001",
+          "quantity": 1,
+          "rate": 1500
+        }
+      ],
+      "totalAmount": 1500,
+      "taxAmount": 270,
+      "grandTotal": 1770,
+      "paymentStatus": "Paid"
+    },
+    {
+      "transactionId": "TXN002",
+      "type": "Purchase",
+      "date": "2025-05-03",
+      "partyId": "PTY002",
+      "items": [
+        {
+          "itemId": "ITM002",
+          "quantity": 12,
+          "rate": 100
+        }
+      ],
+      "totalAmount": 1200,
+      "taxAmount": 216,
+      "grandTotal": 1416,
+      "paymentStatus": "Pending"
+    }
+  ]
+}
