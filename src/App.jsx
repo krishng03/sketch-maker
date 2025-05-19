@@ -2,13 +2,20 @@ import React, { useRef, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Handlebars from "handlebars";
 import "./App.css";
-import config from './config.json'; 
+import config from "./config.json";
 
 export default function App() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [headerHeight, setHeaderHeight] = useState(25);
+  const [footerHeight, setFooterHeight] = useState(15);
+
+  const [headerText, setHeaderText] = useState("");
+  const [mainText, setMainText] = useState("");
+  const [footerText, setFooterText] = useState("");
 
   const handleBarFunc = () => {
     const data = {
@@ -213,13 +220,13 @@ export default function App() {
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = 500;
-    canvas.height = 300;
+    canvas.height = 380;
 
     const context = canvas.getContext("2d");
     context.lineCap = "round";
     context.strokeStyle = "black";
     context.lineWidth = 2;
-    contextRef.current = context
+    contextRef.current = context;
 
     const icon = new window.Image();
     icon.onload = () => {
@@ -263,7 +270,7 @@ export default function App() {
     img.src = URL.createObjectURL(file);
   };
 
-  const getSchema = async (isSketch) => {
+  const getSchema = async () => {
     if (!file) return;
 
     const reader = new FileReader();
@@ -272,10 +279,15 @@ export default function App() {
       const base64Image = reader.result;
       setLoading(true);
 
-      let text = "";
+      const userCommands = {
+        headerHeightFromTop: headerHeight,
+        footerHeightFromBottom: footerHeight,
+        commandsForHeaderSectionElements: headerText,
+        commandsForMainSectionElements: mainText,
+        commandsForFooterSectionElements: footerText,
+      }
 
-      if (isSketch) {
-        text = `
+      let text = `
           Invoice Sketch-to-HTML Converter
           You are an advanced AI specializing in converting hand-drawn invoice sketches to professional HTML and CSS code. Your task is to carefully analyze the sketch, identify all invoice components, and generate accurate, responsive code that matches the sketch layout.
           STEP 1: ANALYZE THE SKETCH SYSTEMATICALLY
@@ -373,6 +385,12 @@ export default function App() {
           Include table headers: Description, Quantity, Price, Total
           Style to match sketch appearance
 
+          USER-PROVIDED COMMANDS:
+          ${userCommands}
+          This includes percentage values for header and footer section. If any value is 0, consider header or footer does not exist, merge that section in main section.
+          This also includes some user provided commands for elements detected in header, main, and footer sections
+          This has been taken to provide a sketch which further enhances the output and makes better result to user. Hope it helps in making better HTML + CSS results.
+
           BEFORE COMPLETING
           Review your output and check:
 
@@ -384,80 +402,6 @@ export default function App() {
 
           Only return the complete HTML and CSS code with the structure specified above - no explanations or additional text.
         `;
-      } else {
-        text = `
-          I am providing a sample invoice to you
-          Provide business details, party details, transaction details, items list, and add all related properties of mentioned fields
-          Identify the exact layout of attached sample invoice, and make HTML + CSS for the same
-          Rules:
-          - MOST IMPORTANT: structure of output: one style tag and one div tag containing every part of code
-              <style>
-              code here...
-              </style>
-              <div>
-              code here...
-              </div>
-          - Use semantic HTML tags.
-          - Use Handlebars placeholders.
-          - Structure the invoice like a modern, clean design.
-          - Use CSS Flexbox. Make separate div for each section, Positioning of each div is highly important for gaining trust of use. For subheadings, keep each tag close to each other
-          - No inline styles. Use attractive colors, keep formal tone, use official fonts.
-          - Make the design responsive.
-          - For logo, always set src as './vyapar_logo.png'
-          - Identify orientation of sketch, portrait or landscape, set width and height accordingly, make css styles, positioning(use flex), accordingly
-          - Keep Proper borders to segregate sections in expected format
-          - Keep section headers as it is provided in sample invoice.
-          - Donot put extra details on your own in generated HTML
-
-          Convert this sample invoice to HTML+CSS with Handlebars placeholders.
-          --
-          NOTES:
-          - There can be multiple items for the particular transaction, it is stored as array of objects, update with looping constructs as well
-          - Identify the various components from provided sketch, keep in mind the positioning of components from sketch
-          - For name of handlebar placeholder, keep the same name as given in this json data:
-          - Use this while naming placeholders in html content, STRICTLY follow this
-          {
-            businessDetails: {
-              businessName: business.businessName,
-              ownerName: business.ownerName,
-              email: business.email,
-              phone: business.phone,
-              address: {
-                street: business.address.street,
-                city: business.address.city,
-                state: business.address.state,
-                zip: business.address.zip,
-                country: business.address.country
-              },
-              gstNumber: business.gstNumber,
-              businessType: business.businessType
-            },
-            invoiceNumber: transaction.transactionId,
-            date: transaction.date,
-            customer: {
-              name: customer.name,
-              address: {
-                street: customer.address.street,
-                city: customer.address.city,
-                state: customer.address.state,
-                zip: customer.address.zip,
-              },
-              email: customer.contact.email,
-              phone: customer.contact.phone,
-              gst: customer.gstNumber
-            },
-            items: items,
-            subtotal: transaction.totalAmount.toFixed(2),
-            tax: transaction.taxAmount.toFixed(2),
-            total: transaction.grandTotal.toFixed(2),
-            paymentStatus: transaction.paymentStatus
-          }
-          For example,
-          1. For business details: do {{businessDetails.businessName}}, {{businessDetails.address.zip}}, etc.
-          2. For parties: do {{parties.contact.email}}, {{parties.address.street}}
-          3. For items(array of objects): use constructs like {{#item}} and then {{item}} for item name, {{description}}, {{quantity}}, {{price}}, {{total}}
-        `;
-      }
 
       const apiKey = config.API_KEY;
 
@@ -518,43 +462,152 @@ export default function App() {
     }
   };
 
+  const setFooter = (e) => {
+    if (e.target.value <= 40) {
+      setFooterHeight(e.target.value);
+    }
+  };
+
+  const setHeader = (e) => {
+    if (e.target.value <= 40) {
+      setHeaderHeight(e.target.value);
+    }
+  };
+
   return (
-    <div className="app-container">
-      <h2 className="title">sketch2template</h2>
-      <p className="description">
-        Upload a sketch or sample invoice image to preview and generate a
-        template.
-      </p>
-
-      <div className="canvas-wrapper">
-        <canvas ref={canvasRef} id="canvas" />
+    <div className="fontdecl">
+      <div className="header">
+        <h2 className="title">sketch2template</h2>
+        <p className="description">
+          Upload a sketch or sample invoice image to preview and generate a
+          template.
+        </p>
       </div>
-
-      <div className="controls">
-        <div className="upload-clear">
-          <input
-            type="file"
-            accept="image/*"
-            className="file-input"
-            onChange={handleUpload}
-          />
+      <div className="toolbox">
+        <div>
+          The metadata to the right assist to the generation of invoices, though
+          optional, filling it gives better result
         </div>
-
-        <div className="button-group">
-          <button onClick={() => getSchema(true)} className="btn-action">
-            For Sketch
-          </button>
-          {/* <button onClick={() => getSchema(false)} className="btn-action">
-            For Sample Invoice
-          </button> */}
-        </div>
-
-        {loading && (
-          <div className="loading-indicator">
-            <div className="spinner" />
-            <span>Generating template...</span>
+        <div className="formContainer">
+          <div className="toolboxForm">
+            <label>
+              Header (%):
+              <input
+                type="number"
+                min="0"
+                max="40"
+                placeholder="25%"
+                onBlur={setHeader}
+              />
+            </label>
+            <label>
+              Footer (%):
+              <input
+                type="number"
+                min="0"
+                max="40"
+                placeholder="15%"
+                onBlur={setFooter}
+              />
+            </label>
           </div>
-        )}
+          <div className="toolboxForm2">
+            <div>Enter comma separated values:</div>
+            <div>
+              <label>
+                Header Section Commands
+                <textarea
+                  onBlur={(e) => setHeaderText(e.target.value)}
+                  placeholder="Put GSTIN number here,..."
+                  cols={25}
+                  rows={4}
+                ></textarea>
+              </label>
+              <label>
+                Main Section Commands
+                <textarea
+                  onBlur={(e) => setMainText(e.target.value)}
+                  placeholder="Make item table here,..."
+                  cols={25}
+                  rows={4}
+                ></textarea>
+              </label>
+              <label>
+                Footer Section Commands
+                <textarea
+                  onBlur={(e) => setFooterText(e.target.value)}
+                  placeholder="Write 'Thank You! Visit Again in center', Put Signature in rightmost part, ..."
+                  cols={25}
+                  rows={4}
+                ></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="main">
+        <div className="app-container">
+          <div className="canvas-wrapper">
+            <canvas ref={canvasRef} id="canvas" />
+          </div>
+
+          <div className="controls">
+            <div className="upload-clear">
+              <input
+                type="file"
+                accept="image/*"
+                className="file-input"
+                onChange={handleUpload}
+              />
+            </div>
+
+            <div className="button-group">
+              <button onClick={() => getSchema()} className="btn-action">
+                For Sketch
+              </button>
+              {/* <button onClick={() => getSchema(false)} className="btn-action">
+            For Sample Invoice
+            </button> */}
+            </div>
+
+            {loading && (
+              <div className="loading-indicator">
+                <div className="spinner" />
+                <span>Generating template...</span>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="preview" style={{ position: "relative" }}>
+          <div
+            style={{
+              position: "absolute",
+              top: `${headerHeight}%`,
+              width: "92%",
+              borderTop: "2px dotted red",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: `${footerHeight}%`,
+              width: "92%",
+              borderTop: "2px dotted blue",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              fontWeight: "200",
+              fontFamily: "Segoe UI",
+              fontSize: "12px",
+              marginLeft: "125px",
+            }}
+          >
+            This shows the size of header, main, and footer section
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,29 @@
+.fontdecl {
+  font-family: 'Roboto';
+}
+
+.main {
+  display: flex;
+  height: 95vh;
+  margin: 0 16px 16px 16px;
+  background-color: #f7f7f7;
+  padding: 8px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+  background-color: #f7f7f7;
+  padding: 24px;
+}
+
 .app-container {
-  padding: 12px 24px 12px 24px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9fafb;
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 12px;
 }
 
 .title {
@@ -97,4 +119,83 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.preview {
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.toolbox {
+  gap: 20px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  justify-content: space-around;
+  margin: 16px;
+  padding: 8px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 12px 0px;
+}
+
+.toolboxForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  min-width: 200px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.toolboxForm label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #333;
+}
+
+.toolboxForm input[type="number"] {
+  margin-top: 12px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.toolboxForm2 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #ffffff;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  min-width: 200px;
+}
+
+.toolboxForm2 label {
+  display: flex;
+  font-size: 14px;
+  color: #333;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolboxForm2 textarea {
+  margin-left: 12px;
+  margin-bottom: 4px;
 }
