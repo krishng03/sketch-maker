@@ -1,73 +1,82 @@
 {
   "businessDetails": {
-    "businessName": "BrightTech Solutions",
-    "ownerName": "Jane Doe",
-    "email": "contact@brighttech.com",
-    "phone": "+1-555-123-4567",
+    "businessName": "SweetTreats Bakers",
+    "ownerName": "Priya Sharma",
+    "email": "contact@sweettreats.in",
+    "phone": "+91-9876543210",
     "address": {
-      "street": "123 Innovation Drive",
-      "city": "San Francisco",
-      "state": "CA",
-      "zip": "94107",
-      "country": "USA"
+      "street": "12 MG Road",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "zip": "411001",
+      "country": "India"
     },
-    "gstNumber": "27ABCDE1234F1Z5",
-    "businessType": "Technology Services"
+    "gstNumber": "27PRYSH1234B1Z6",
+    "businessType": "Bakery & Confectionery"
   },
   "items": [
     {
       "itemId": "ITM001",
-      "name": "Website Development",
-      "type": "Service",
-      "category": "Web Services",
-      "rate": 1500,
-      "unit": "Project",
-      "taxPercentage": 18
+      "name": "Chocolate Truffle Cake",
+      "type": "Product",
+      "category": "Cakes",
+      "rate": 700,
+      "unit": "Kg",
+      "taxPercentage": 5
     },
     {
       "itemId": "ITM002",
-      "name": "Cloud Hosting - Basic",
+      "name": "Designer Birthday Cake",
       "type": "Product",
-      "category": "Hosting",
-      "rate": 100,
-      "unit": "Month",
-      "taxPercentage": 18
+      "category": "Cakes",
+      "rate": 1200,
+      "unit": "Kg",
+      "taxPercentage": 5
+    },
+    {
+      "itemId": "ITM003",
+      "name": "Eggless Muffins (Pack of 6)",
+      "type": "Product",
+      "category": "Snacks",
+      "rate": 250,
+      "unit": "Pack",
+      "taxPercentage": 5
     }
   ],
   "parties": [
     {
       "partyId": "PTY001",
-      "name": "Acme Corp",
+      "name": "Khandelwal Events",
       "type": "Customer",
       "contact": {
-        "email": "info@acmecorp.com",
-        "phone": "+1-555-987-6543"
+        "email": "khandelwalevents@gmail.com",
+        "phone": "+91-9822123456"
       },
       "address": {
-        "street": "456 Enterprise Lane",
-        "city": "New York",
-        "state": "NY",
-        "zip": "10001",
-        "country": "USA"
+        "street": "45 Shaniwar Peth",
+        "city": "Pune",
+        "state": "Maharashtra",
+        "zip": "411030",
+        "country": "India"
       },
-      "gstNumber": "27ACMEC1234P1Z9"
+      "gstNumber": "27KHNDE1234A1Z2"
     },
     {
       "partyId": "PTY002",
-      "name": "Delta Supplies",
+      "name": "FreshBake Supplies",
       "type": "Vendor",
       "contact": {
-        "email": "support@deltasupplies.com",
-        "phone": "+1-555-321-7890"
+        "email": "sales@freshbake.in",
+        "phone": "+91-9898123456"
       },
       "address": {
-        "street": "789 Supplier Street",
-        "city": "Chicago",
-        "state": "IL",
-        "zip": "60616",
-        "country": "USA"
+        "street": "203 Industrial Area",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "zip": "400001",
+        "country": "India"
       },
-      "gstNumber": "27DELT1234V1Z0"
+      "gstNumber": "27FRSHB1234T1Z7"
     }
   ],
   "transactions": [
@@ -79,13 +88,23 @@
       "items": [
         {
           "itemId": "ITM001",
+          "quantity": 2,
+          "rate": 700
+        },
+        {
+          "itemId": "ITM002",
           "quantity": 1,
-          "rate": 1500
+          "rate": 1200
+        },
+        {
+          "itemId": "ITM003",
+          "quantity": 3,
+          "rate": 250
         }
       ],
-      "totalAmount": 1500,
-      "taxAmount": 270,
-      "grandTotal": 1770,
+      "totalAmount": 3350,
+      "taxAmount": 167.5,
+      "grandTotal": 3517.5,
       "paymentStatus": "Paid"
     },
     {
@@ -95,14 +114,19 @@
       "partyId": "PTY002",
       "items": [
         {
-          "itemId": "ITM002",
-          "quantity": 12,
-          "rate": 100
+          "itemId": "ITM003",
+          "quantity": 20,
+          "rate": 200
+        },
+        {
+          "itemId": "ITM001",
+          "quantity": 10,
+          "rate": 600
         }
       ],
-      "totalAmount": 1200,
-      "taxAmount": 216,
-      "grandTotal": 1416,
+      "totalAmount": 10000,
+      "taxAmount": 500,
+      "grandTotal": 10500,
       "paymentStatus": "Pending"
     }
   ]
